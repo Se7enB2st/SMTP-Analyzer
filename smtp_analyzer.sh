@@ -8,14 +8,31 @@
 RED='\033[0;31m'
 GREEN='\033[0;32m'
 YELLOW='\033[1;33m'
+BLUE='\033[0;34m'
 NC='\033[0m' # No Color
+
+# Function to print menu
+print_menu() {
+    echo -e "\n${BLUE}SMTP Analyzer Menu${NC}"
+    echo "====================="
+    echo "1. Quick Test (All Checks)"
+    echo "2. Check Email Format"
+    echo "3. Check DNS Records"
+    echo "4. Test SMTP Connection"
+    echo "5. Test Email Sending"
+    echo "6. Troubleshooting Guide"
+    echo "7. Exit"
+    echo -e "=====================\n"
+}
 
 # Function to validate email format
 validate_email() {
     local email=$1
     if [[ $email =~ ^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$ ]]; then
+        echo -e "${GREEN}Email format is valid${NC}"
         return 0
     else
+        echo -e "${RED}Invalid email format${NC}"
         return 1
     fi
 }
@@ -105,12 +122,42 @@ EOF
     fi
 }
 
-# Main function
-main() {
-    echo -e "${YELLOW}SMTP Analyzer Tool${NC}"
+# Function to show troubleshooting guide
+show_troubleshooting_guide() {
+    echo -e "\n${YELLOW}Troubleshooting Guide${NC}"
     echo "====================="
+    echo "1. If email format is invalid:"
+    echo "   - Check for typos in the email address"
+    echo "   - Ensure the domain is correct"
+    echo "   - Verify special characters are allowed"
     
-    # Get input from user
+    echo -e "\n2. If DNS checks fail:"
+    echo "   - Verify domain is registered"
+    echo "   - Check MX records are properly configured"
+    echo "   - Ensure A records point to correct IP"
+    echo "   - Verify SPF records are set up"
+    
+    echo -e "\n3. If SMTP connection fails:"
+    echo "   - Check if server is online"
+    echo "   - Verify port is correct"
+    echo "   - Check firewall settings"
+    echo "   - Ensure network connectivity"
+    
+    echo -e "\n4. If email sending fails:"
+    echo "   - Verify SMTP credentials"
+    echo "   - Check authentication method"
+    echo "   - Verify sender/recipient addresses"
+    echo "   - Check for rate limiting"
+    
+    echo -e "\n5. General tips:"
+    echo "   - Try different SMTP ports (25, 465, 587)"
+    echo "   - Check spam filters"
+    echo "   - Verify email size limits"
+    echo "   - Check server logs for errors"
+}
+
+# Function to get user input
+get_user_input() {
     read -p "Enter SMTP server address: " smtp_server
     read -p "Enter SMTP port (default 587): " smtp_port
     smtp_port=${smtp_port:-587}
@@ -119,8 +166,6 @@ main() {
         read -p "Enter sender email address: " from_email
         if validate_email "$from_email"; then
             break
-        else
-            echo -e "${RED}Invalid email format. Please try again.${NC}"
         fi
     done
     
@@ -128,32 +173,68 @@ main() {
         read -p "Enter recipient email address: " to_email
         if validate_email "$to_email"; then
             break
-        else
-            echo -e "${RED}Invalid email format. Please try again.${NC}"
         fi
     done
     
     read -p "Enter SMTP username: " smtp_username
     read -s -p "Enter SMTP password: " smtp_password
     echo "" # New line after password input
-    
-    # Extract domain from email
+}
+
+# Function to perform quick test
+quick_test() {
+    get_user_input
     domain=$(get_domain "$from_email")
     
-    # Perform checks
+    echo -e "\n${YELLOW}Running Quick Test...${NC}"
     check_dns $domain
     if test_smtp $smtp_server $smtp_port; then
         test_email_send $smtp_server $smtp_port $from_email $to_email $smtp_username $smtp_password
     fi
-    
-    echo -e "\n${YELLOW}Additional Recommendations:${NC}"
-    echo "1. Verify SMTP authentication settings"
-    echo "2. Check firewall rules for port $smtp_port"
-    echo "3. Verify email client configuration"
-    echo "4. Check for any rate limiting on the SMTP server"
-    echo "5. Verify DNS records are properly propagated"
-    echo "6. Check spam filters and quarantine settings"
-    echo "7. Verify email size limits"
+}
+
+# Main function
+main() {
+    while true; do
+        print_menu
+        read -p "Select an option (1-7): " choice
+        
+        case $choice in
+            1)
+                quick_test
+                ;;
+            2)
+                read -p "Enter email address to validate: " email
+                validate_email "$email"
+                ;;
+            3)
+                read -p "Enter domain to check: " domain
+                check_dns "$domain"
+                ;;
+            4)
+                read -p "Enter SMTP server: " server
+                read -p "Enter port (default 587): " port
+                port=${port:-587}
+                test_smtp "$server" "$port"
+                ;;
+            5)
+                get_user_input
+                test_email_send $smtp_server $smtp_port $from_email $to_email $smtp_username $smtp_password
+                ;;
+            6)
+                show_troubleshooting_guide
+                ;;
+            7)
+                echo "Exiting..."
+                exit 0
+                ;;
+            *)
+                echo -e "${RED}Invalid option. Please try again.${NC}"
+                ;;
+        esac
+        
+        read -p "Press Enter to continue..."
+    done
 }
 
 # Run main function

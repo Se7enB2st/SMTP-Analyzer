@@ -4,11 +4,12 @@ A command-line tool to diagnose and troubleshoot scan-to-email issues by analyzi
 
 ## Features
 
+- Interactive menu-driven interface
 - Email address validation
 - DNS record analysis (MX, A, TXT records)
 - SMTP connection testing
 - Test email sending capability
-- Comprehensive diagnostic output
+- Comprehensive troubleshooting guide
 - Color-coded results for better visibility
 - No external dependencies required
 
@@ -38,45 +39,60 @@ Run the script:
 ./smtp_analyzer.sh
 ```
 
-The script will prompt you for:
-- SMTP server address
-- SMTP port (defaults to 587)
-- Sender email address
-- Recipient email address
-- SMTP username
-- SMTP password
+The interactive menu provides the following options:
 
-## What the Tool Checks
+1. **Quick Test (All Checks)**
+   - Performs all available checks in sequence
+   - Validates email addresses
+   - Checks DNS records
+   - Tests SMTP connection
+   - Attempts to send a test email
 
-1. **Email Validation**
-   - Validates email address format
-   - Extracts domain for DNS checks
+2. **Check Email Format**
+   - Validates email address syntax
+   - Provides immediate feedback
 
-2. **DNS Configuration**
-   - MX records (mail exchanger)
-   - A records (IP addresses)
-   - TXT records (including SPF)
+3. **Check DNS Records**
+   - Checks MX records
+   - Checks A records
+   - Checks TXT records
+   - Provides detailed DNS information
 
-3. **SMTP Connectivity**
-   - Server reachability
-   - Port accessibility
-   - Connection establishment
+4. **Test SMTP Connection**
+   - Tests server reachability
+   - Verifies port accessibility
+   - Checks connection establishment
 
-4. **Email Testing**
-   - SMTP authentication
-   - Test email sending
-   - Basic SMTP protocol testing
+5. **Test Email Sending**
+   - Tests SMTP authentication
+   - Attempts to send a test email
+   - Provides detailed feedback
+
+6. **Troubleshooting Guide**
+   - Shows comprehensive troubleshooting steps
+   - Provides solutions for common issues
+   - Offers best practices and tips
+
+7. **Exit**
+   - Exits the program
+
+## Interactive Features
+
+- Color-coded output for better visibility
+- Step-by-step guidance
+- Immediate feedback on each operation
+- Pause between operations for better readability
+- Detailed error messages
+- Comprehensive troubleshooting guide
 
 ## Troubleshooting
 
-If you encounter issues:
-1. Check your network connectivity
-2. Verify DNS resolution is working
-3. Ensure the SMTP server is accessible
-4. Check firewall settings
-5. Verify email credentials
-6. Check spam filters and quarantine settings
-7. Verify email size limits
+The built-in troubleshooting guide provides solutions for:
+1. Email format issues
+2. DNS configuration problems
+3. SMTP connection failures
+4. Email sending issues
+5. General tips and best practices
 
 ## Contributing
 
