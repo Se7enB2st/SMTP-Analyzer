@@ -1,6 +1,6 @@
 # SMTP-Analyzer
 
-A command-line tool to diagnose and troubleshoot scan-to-email issues by analyzing SMTP configurations and testing email delivery. Uses only built-in bash commands and tools.
+A command-line tool to diagnose and troubleshoot scan-to-email issues by analyzing SMTP configurations and testing email delivery. Available in both Bash and PowerShell versions.
 
 ## Features
 
@@ -15,12 +15,19 @@ A command-line tool to diagnose and troubleshoot scan-to-email issues by analyzi
 
 ## Prerequisites
 
+### Bash Version
 - Bash shell (version 4.0 or higher)
 - Basic Unix tools (nslookup, telnet, timeout)
 - These tools are typically pre-installed on most Unix-like systems
 
+### PowerShell Version
+- PowerShell 5.1 or higher
+- Windows 7/8/10/11 or Windows Server 2008 R2 or later
+- .NET Framework 4.5 or later
+
 ## Installation
 
+### Bash Version
 1. Clone this repository:
 ```bash
 git clone https://github.com/se7enb2st/SMTP-Analyzer.git
@@ -32,11 +39,30 @@ cd SMTP-Analyzer
 chmod +x smtp_analyzer.sh
 ```
 
+### PowerShell Version
+1. Clone this repository:
+```powershell
+git clone https://github.com/se7enb2st/SMTP-Analyzer.git
+cd SMTP-Analyzer
+```
+
+2. Set execution policy (if needed):
+```powershell
+Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
+```
+
 ## Usage
 
+### Bash Version
 Run the script:
 ```bash
 ./smtp_analyzer.sh
+```
+
+### PowerShell Version
+Run the script:
+```powershell
+.\smtp_analyzer.ps1
 ```
 
 The interactive menu provides the following options:
@@ -84,6 +110,14 @@ The interactive menu provides the following options:
 - Pause between operations for better readability
 - Detailed error messages
 - Comprehensive troubleshooting guide
+
+## PowerShell-Specific Features
+
+- Secure password handling
+- Native .NET SMTP client
+- Built-in DNS resolution
+- Windows-specific error handling
+- Secure string support for credentials
 
 ## Troubleshooting
 
