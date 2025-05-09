@@ -11,6 +11,10 @@ A command-line tool to diagnose and troubleshoot scan-to-email issues by analyzi
 - Test email sending capability
 - Comprehensive troubleshooting guide
 - Color-coded results for better visibility
+- Configuration management
+- Logging system
+- Progress indicators
+- Help system
 - No external dependencies required
 
 ## Prerequisites
@@ -73,51 +77,90 @@ The interactive menu provides the following options:
    - Checks DNS records
    - Tests SMTP connection
    - Attempts to send a test email
+   - Shows progress indicators
 
 2. **Check Email Format**
    - Validates email address syntax
    - Provides immediate feedback
+   - Color-coded results
 
 3. **Check DNS Records**
    - Checks MX records
    - Checks A records
    - Checks TXT records
    - Provides detailed DNS information
+   - Shows progress indicators
 
 4. **Test SMTP Connection**
    - Tests server reachability
    - Verifies port accessibility
    - Checks connection establishment
+   - Shows progress indicators
 
 5. **Test Email Sending**
    - Tests SMTP authentication
    - Attempts to send a test email
    - Provides detailed feedback
+   - Shows progress indicators
 
 6. **Troubleshooting Guide**
    - Shows comprehensive troubleshooting steps
    - Provides solutions for common issues
    - Offers best practices and tips
 
-7. **Exit**
-   - Exits the program
+7. **Settings**
+   - Configure tool options
+   - Enable/disable logging
+   - Change default port
+   - Adjust timeout settings
+   - Enable/disable SSL
+   - Customize test email content
+
+8. **View Log**
+   - Display recent log entries
+   - View operation history
+   - Track errors and successes
+
+9. **Help**
+   - Show detailed help information
+   - Explain all menu options
+   - List common issues
+   - Provide usage tips
+
+0. **Exit**
+   - Close the program
 
 ## Interactive Features
 
 - Color-coded output for better visibility
 - Step-by-step guidance
 - Immediate feedback on each operation
+- Progress indicators for long-running operations
 - Pause between operations for better readability
 - Detailed error messages
 - Comprehensive troubleshooting guide
+- Configuration management
+- Logging system
+- Help system
 
-## PowerShell-Specific Features
+## Configuration
 
-- Secure password handling
-- Native .NET SMTP client
-- Built-in DNS resolution
-- Windows-specific error handling
-- Secure string support for credentials
+The tool can be configured through the Settings menu or by editing the configuration file:
+
+### Bash Version
+- Configuration file: `smtp_analyzer.conf`
+- Log file: `smtp_analyzer.log`
+
+### PowerShell Version
+- Configuration file: `smtp_analyzer.json`
+- Log file: `smtp_analyzer.log`
+
+Configurable options include:
+- Default SMTP port
+- Connection timeout
+- Logging enabled/disabled
+- SSL enabled/disabled
+- Test email subject and body
 
 ## Troubleshooting
 
@@ -131,7 +174,3 @@ The built-in troubleshooting guide provides solutions for:
 ## Contributing
 
 Feel free to submit issues and enhancement requests!
-
-## License
-
-This project is licensed under the MIT License - see the LICENSE file for details.
